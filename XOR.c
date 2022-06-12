@@ -35,11 +35,10 @@ int main() {
     double dS[2][3] = {
         {0, 0, 0},
         {0, 0, 0}};
-    double x[3] = {1, 0, 1};
     int xt[4][3] = {{1, 0, 0}, {1, 0, 1}, {1, 1, 0}, {1, 1, 1}};
     double u[3] = {1, 0, 0};
     double W[3] = {0, 0, 0};
-    for(j = 0; j < 2; j++) {
+    for(j = 0; j < 3; j++) {
         W[j] = rand_normal(0, 1);
     }
     double dW[3] = {0, 0, 0};
@@ -59,17 +58,23 @@ int main() {
             u[j] = Sigmoid(u[j]);
         }
 
+        //     for(j = 0; j < 3; j++) {
+        //     printf("%f\n",u[j]);
+        // }
+
         for(j = 0; j < 3; j++) {
             z += u[j] * W[j];
         }
 
         z = Sigmoid(z);
 
-        printf("z = %f\n", z);
+        if((count % 4) == 0){
+            printf("z = %f\n", z);
+        }
 
         E = pow((z - yt[index]), 2) / 2;
 
-        printf("Error %f\n", E);
+        // printf("Error %f\n", E);
 
         r = (yt[index] - z) * z * (1 - z);
 
@@ -101,15 +106,18 @@ int main() {
 
     printf("\n");
     for(i = 0; i < 4; i++) {
+        z = 0;
 
         for(j = 1; j < 3; j++) {
-            u[j] = xt[i][0] * S[j][0] + xt[i][1] * S[j][1] + xt[i][2] * S[j][2];
+            u[j] = xt[i][0] * S[j - 1][0] + xt[i][1] * S[j - 1][1] + xt[i][2] * S[j - 1][2];
             u[j] = Sigmoid(u[j]);
         }
 
         for(j = 0; j < 3; j++) {
             z += u[j] * W[j];
         }
+
+        // printf("u[0] = %f\n", u[0]);
 
         z = Sigmoid(z);
 
