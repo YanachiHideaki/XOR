@@ -114,7 +114,7 @@ int main() {
         }
 
         for(j = 0; j < 3; j++) {
-            z += u[j] * W[j];
+            z += u[j] * W[j];　
         }
 
         // printf("u[0] = %f\n", u[0]);
